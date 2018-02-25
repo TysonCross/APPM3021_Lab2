@@ -1,37 +1,32 @@
-clc 
+clc
 clear all
-
-% rows = 3;
-% A = magic(rows)
-% b = randi(10,rows,1)
 
 A = [ 3, 1, -1;...
       1, -4, 2;...
-      -2, -1, 5]
-b = [3;-1;2]
-L = tril(A,-1)
-U = triu(A,1)
-D = A-L-U
-n = length(b);
-x = zeros(n,1);
-tol = 0.0001;
+      -2, -1, 5];
+b = [3;-1;2];
+x_0 = zeros(length(b),1);
+tol = 0.000000000000001;
 
-check = A\b
+[solution_jacobi, iterations_jacobi] = JacobiMethod(A,b,x_0,tol);
+[solution_gaussSeidel, iterations_gaussSeidel] = gaussSeidel(A,b,x_0,tol);
 
-i = 1;
-while true
-% N= 3;
-% for i=1:N
-    y=b-(L+U)*x(:,i)
-    x(:,i+1)=D\y
-    
-    err = abs(check - x(:,i+1));
-    err_norm = sum(err);
-    if err_norm <= tol || isnan(err_norm) || isinf(err_norm)
-        break;
-    end
-    i=i+1;
+
+% Output and check
+correct_solution = A\b;
+if ~isequal(solution_jacobi(length(solution_jacobi)),correct_solution)
+    warning(['Jacobi Solution is inaccurate, by a max difference of ',...
+        num2str(max(max(abs(solution_jacobi(length(solution_jacobi))-correct_solution))))])
+    disp(' ')
+end
+if ~isequal(solution_jacobi(length(solution_jacobi)),correct_solution)
+    warning(['Gauss-Seidel Solution is inaccurate, by a max difference of ',...
+        num2str(max(max(abs(solution_gaussSeidel(length(solution_gaussSeidel))-correct_solution))))])
+    disp(' ')
 end
 
-disp(['max difference is = ',num2str(err_norm)])
-disp(['Solution converged within tolerance, in ', num2str(i),' iterations'])
+disp(['Jacobi Solution converged within ', num2str(iterations_jacobi), ' iterations'])
+solution_jacobi(:,length(solution_jacobi))
+
+disp(['Gauss-Seidel Solution converged within ', num2str(iterations_gaussSeidel), ' iterations'])
+solution_gaussSeidel(:,length(solution_gaussSeidel))
