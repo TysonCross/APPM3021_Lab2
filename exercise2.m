@@ -5,16 +5,16 @@ clear all
 
 A = [ 3, 1, -1;...
       1, -4, 2;...
-      -2, -1, 5];
+      -2, -1, 5]
   
-b = [3;-1;2];
+b = [3;-1;2]
 
 % rows = 5;
 % A = magic(rows)
 % b = randi(10,rows,1)
 
 x_0 = zeros(length(b),1)
-tol = 0.000001
+tol = 0.0001
 
 [solution, iterations] = gaussSeidel(A,b,x_0,tol);
 

@@ -1,4 +1,4 @@
-% APPM3021 Lab 3, Exercise 1
+% APPM3021 Lab 3, Exercise 3
 
 clc
 clear all
@@ -16,7 +16,7 @@ b = [3;-1;2]
 x_0 = zeros(length(b),1)
 tol = 0.0001
 
-[solution, iterations] = JacobiMethod(A,b,x_0,tol);
+[solution, iterations] = SOR(A,b,x_0,tol);
 
 % Output and check
 correct_solution = A\b;
