@@ -1,6 +1,10 @@
 clc 
 clear all
 
+% rows = 3;
+% A = magic(rows)
+% b = randi(10,rows,1)
+
 A = [ 3, 1, -1;...
       1, -4, 2;...
       -2, -1, 5]
