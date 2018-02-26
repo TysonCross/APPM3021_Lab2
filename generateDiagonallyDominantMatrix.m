@@ -8,6 +8,7 @@ while rho >= 1 || redo;
     try_count = try_count +1;
 %     A=diag(randi([-10,10],n,1)*10) + randi(10,n,n) + ones(n,n);
     A = diag(randi([-10,10],n,1)*10)+gallery('lehmer',n);
+
     [L, D, U] = LDU(A);
     B = D\(L+U);
     if isSolvable(B)
@@ -17,7 +18,7 @@ while rho >= 1 || redo;
         redo=true;
     else redo=false;
     end
-    if try_count > 1000
+    if try_count > 100
         error('Unable to generate convergent matrix')
     end
 %     disp(['A solvable:',num2str(isSolvable(A)),' with rcond =r',num2str(rcond(A))])
