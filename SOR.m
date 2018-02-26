@@ -20,14 +20,14 @@ while true
     y = omega*b + ((1-omega)*D - omega*U)*x(:,index);
     x(:,index+1) = (D+omega*L)\y;
     
-    err_norm = sum(abs(check-x(:,index+1)));
-    if err_norm <= tol
+    err = sum(abs(check-x(:,index+1)));
+    if err <= tol
         break;
     end
-    if isnan(err_norm)
+    if isnan(err)
         error(['Solution at index(',num2str(index),' has NaN entry'])
     end
-        if isinf(err_norm)
+        if isinf(err)
         error(['Solution at index(',num2str(index),' has Inf entry'])
     end
     index=index+1;

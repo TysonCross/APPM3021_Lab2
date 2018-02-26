@@ -9,22 +9,28 @@ A = [ 3, 1, -1;...
   
 b = [3;-1;2]
 
-% rows = 5;
-% A = magic(rows)
+% rows = 2;
+% A = randi(rows,rows);
+% while (det(A)==0)     % need to test for convergence
+%     A = rand(rows,rows);
+% end
+% A
 % b = randi(10,rows,1)
 
 x_0 = zeros(length(b),1)
-tol = 0.0001
+tol = 0.001
 
 [solution, iterations] = gaussSeidel(A,b,x_0,tol);
 
 % Output and check
 correct_solution = A\b;
-if ~isequal(solution(length(solution)),correct_solution)
+if ~isequal(solution(end),correct_solution)
     warning(['Solution is inaccurate, by a max difference of ',...
-        num2str(max(max(abs(solution(length(solution))-correct_solution))))])
+        num2str(max(abs(solution(end)-correct_solution)))])
     disp(' ')
 end
 
+relative_norm = max(abs(solution(end) - solution(end-1)))/ max(abs(solution(end)));
+disp(['Solution has a norm of ', num2str(relative_norm)])
 disp(['Solution converged within ', num2str(iterations), ' iterations'])
 solution(:,length(solution))
