@@ -15,5 +15,17 @@ if det(A)==0
     return
 end
 
+if isnan(A)
+    disp('Matrix contains NaN values')
+    x = false;
+    return
+end
+
+if isinf(A)
+    disp('Matrix contains Inf values')
+    x = false;
+    return
+end
+
 end
 
