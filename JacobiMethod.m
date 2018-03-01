@@ -4,19 +4,26 @@ function [x,iterationCount] = jacobiMethod(A,b,x_0,tol)
 % the Jaconbi method
 
 if ~isSolvable(A)                                   % check is matrix is square and non-singular
-    err(strcat('Matrix is not solvable'))
+    error(strcat('Matrix is not solvable'))
+end
+
+x = x_0;
+
+% check convergence
+if ~converges(A)
+    disp('The matrix does not converge')
+    iterationCount = 0;
+    return
 end
 
 [L, D, U] = LDU(A);
-x = x_0;
-
-check = A\b;
+correct_solution = A\b;
 
 iterationCount = 1;
 while true
     y=b-(L+U)*x(:,iterationCount);
     x(:,iterationCount+1)=D\y;
-    err_norm = sum(abs(check-x(:,iterationCount+1)));
+    err_norm = sum(abs(correct_solution - x(:,iterationCount+1)));
     if err_norm <= tol
         break;
     end

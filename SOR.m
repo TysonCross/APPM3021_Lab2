@@ -4,16 +4,24 @@ function [x,iterationCount] = SOR(A,b,x_0,tol)
 % the Successive Over-relaxation (SOR) method
 
 if ~isSolvable(A)                                   % check is matrix is square and non-singular
-    err(strcat('Matrix is not solvable'))
+    error(strcat('Matrix is not solvable'))
 end
 
-[L, D, U] = LDU(A);
 x = x_0;
 
+% check convergence
+if ~converges(A)
+    disp('The matrix does not converge')
+    iterationCount = 0;
+    return
+end
+
 correct_solution = A\b;
+[L, D, U] = LDU(A);
 B = D\(L+U);
 eigenvalue = max(abs(eig(B)));
 omega = 2/(1+sqrt(1-eigenvalue^2));
+% B_sor = (D+omega*L)\((1-omega)*D-omega*U);
 
 iterationCount = 1;
 while true

@@ -1,4 +1,4 @@
-% APPM3021 Lab 3, Exercise 4
+% APPM3021 Lab 2, Exercise 4
 
 clc
 clear all
@@ -105,7 +105,7 @@ legend1 = legend({'Jacobi','Gauss-Seidel','SOR','Convergence tolerance'},...
 hold off
 % export (fix for missing CMU fonts in eps export)
 % export_fig relative_error.eps
-epswrite('relative_error.eps');
+% epswrite('images/relative_error.eps');
 % epsembedfont('relative_error.eps','+CMU Serif=>mwa_cmr10')
 
 
