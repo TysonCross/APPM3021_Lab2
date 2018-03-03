@@ -13,15 +13,10 @@ x_0 = zeros(length(b),1);
 tol = 0.00001
 
 % Iterative attempt at solution
-[solution, iterations] = SOR(A,b,x_0,tol);
+tic
+[sol_sor, iter_sor] = SOR(A,b,x_0,tol);
+time_sor = toc;
 correct_solution = A\b;
 
 % Display results
-displaySolution(solution, iterations, tol, correct_solution)
-
-
-
-
-
-
-
+displaySolution(sol_sor, iter_sor, tol, correct_solution, time_sor, 2)

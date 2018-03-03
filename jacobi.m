@@ -1,7 +1,7 @@
-function [x,iterationCount] = jacobiMethod(A,b,x_0,tol)
-% JacobiMethod uses an iterative technique to estimate the solution
+function [x,iterationCount] = jacobi(A,b,x_0,tol)
+% Jacobi uses an iterative technique to estimate the solution
 % to a given system of equations within a specified tolerance using
-% the Jaconbi method
+% the Jacobi method
 
 if ~isSolvable(A)                                   % check is matrix is square and non-singular
     error(strcat('Matrix is not solvable'))

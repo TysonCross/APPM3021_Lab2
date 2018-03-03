@@ -25,6 +25,3 @@ while rho >= 1 || redo;
 %     disp(['B solvable:',num2str(isSolvable(B)),' with rcond =r',num2str(rcond(B))])
 end
 end
-
-
-

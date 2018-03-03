@@ -5,19 +5,25 @@ clear all
 digits(32)
 % dbstop if error
 
-n = 100;
 tol = 0.000001;
 
 %% Generate
-A = generateDiagonallyDominantMatrix(n);
+n = 100;
+% A = generateDiagonallyDominantMatrix(n);
+% dlmwrite('Data/matrix.txt',A,'precision',3);
+% matrix2latexmatrix(A,'Data/matrix_values.tex');
+A = dlmread('Data/matrix.txt');
 b = randi(10,n,1);
 x_0 = zeros(n,1);
 
-
 %% Measure
-[sol_jac, iter_jac] = jacobiMethod(A,b,x_0,tol);
+tic
+[sol_jac, iter_jac] = jacobi(A,b,x_0,tol);
+time_jac = toc; tic;
 [sol_gss, iter_gss] = gaussSeidel(A,b,x_0,tol);
+time_gss = toc; tic;
 [sol_sor, iter_sor] = SOR(A,b,x_0,tol);
+time_sor = toc;
 
 %% Relative Errors
 error_jac = zeros(iter_jac,1);
@@ -38,7 +44,10 @@ for index=2:iter_sor+1
     error_sor(index) = max(difference)/max(abs(sol_sor(:,index)));
 end
     
-
+% remove the empty first entry
+error_jac(1) = [];
+error_gss(1) = [];
+error_sor(1) = [];
 
 %% Display setting and output setup
 scr = get(groot,'ScreenSize');                              % screen resolution
@@ -71,11 +80,11 @@ p3 = semilogy(error_sor,...
         'LineStyle','-',...
         'LineWidth',1);
 hold on
-p4 = refline(0,tol);
-set(p4,'Color',[0.18 0.18 0.18 .6],...                 
-        'LineStyle',':',...
-        'LineWidth',1);
-hold on
+% p4 = refline(0,tol);
+% set(p4,'Color',[0.18 0.18 0.18 .6],...                 
+%         'LineStyle',':',...
+%         'LineWidth',1);
+% hold on
 
 % Title
 title('Relative Error vs. Iterations',...
@@ -91,21 +100,16 @@ ylabel('Relative Error',...
 xlabel('Number of Iterations',...
     'FontName',fontName,...
     'FontSize',14);
-xlim(ax1,[2 iter_jac(1,1)]);
+xlim(ax1,[1 iter_jac(1,1)]);
 box(ax1,'off');
 set(ax1,'FontSize',14,...
     'XTick',[0:5:iter_jac(1,1)],...
     'XTickLabelRotation',45,...
-    'YMinorTick','on','YScale','log');hold on
+    'YMinorTick','on');hold on
 
 % Legend
-legend1 = legend({'Jacobi','Gauss-Seidel','SOR','Convergence tolerance'},...
+legend1 = legend({'Jacobi','Gauss-Seidel','SOR'},...
      'Position',[0.7    0.7    0.2    0.09],...
      'Box','off');
 hold off
-% export (fix for missing CMU fonts in eps export)
-% export_fig relative_error.eps
 % epswrite('images/relative_error.eps');
-% epsembedfont('relative_error.eps','+CMU Serif=>mwa_cmr10')
-
-

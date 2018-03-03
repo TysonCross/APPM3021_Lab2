@@ -28,4 +28,3 @@ if isinf(A)
 end
 
 end
-

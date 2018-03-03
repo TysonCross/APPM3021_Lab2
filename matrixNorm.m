@@ -1,10 +1,10 @@
 function [ output_norm ] = matrixNorm( A )
 % Returns the norm of a given matrix
 
-if isSolvable(A)
+% if isSolvable(A)
     n = length(A);
-else disp('Matrix is not solvable')
-end
+% else disp('Matrix is not solvable')
+% end
 
 output_norm =[];
 for row=1:n

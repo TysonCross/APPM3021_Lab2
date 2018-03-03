@@ -13,8 +13,10 @@ x_0 = zeros(length(b),1);
 tol = 0.00001
 
 % Iterative attempt at solution
-[solution, iterations] = gaussSeidel(A,b,x_0,tol);
+tic;
+[sol_gss, iter_gss] = gaussSeidel(A,b,x_0,tol);
+time_gss = toc;
 correct_solution = A\b;
 
 % Display results
-displaySolution(solution, iterations, tol, correct_solution)
+displaySolution(sol_gss, iter_gss, tol, correct_solution, time_gss, 2)

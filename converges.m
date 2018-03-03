@@ -11,7 +11,7 @@ reason2 = '';
 if matrixNorm(B) < 1
     result = true;
 else
-    reason1 = 'The norm ||B||_infinity is not less than 1 ';
+    reason1 = '  ·The norm ||B||_inf is not less than 1 ';
 end
 
 rho = max(abs(eig(B)));
@@ -19,7 +19,7 @@ if rho < 1
     result = true;
 else
     result = false;
-    reason2 = 'The spectral radius rho(B) is not less than 1 ';
+    reason2 = '  ·The spectral radius rho(B) is not less than 1 ';
 end
 
 if ~result

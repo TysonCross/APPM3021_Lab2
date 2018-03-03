@@ -9,4 +9,3 @@ U = triu(A,1);
 D = A-L-U;
 
 end
-

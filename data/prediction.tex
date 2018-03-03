@@ -1,0 +1,91 @@
+\documentclass{article}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{mathtools}
+%\usepackage{bm}
+\setcounter{MaxMatrixCols}{100}
+\begin{document}
+\centering
+
+\begin{equation}
+\mathbf{e}^{(k)}=\mathbf{\overline{x}}-\mathbf{\overline{x}}^{(k+1)}
+=\Big(\mathbf{B}\mathbf{\overline{x}}+\mathbf{\overline{c}}\Big)-\Big(\mathbf{B}\mathbf{\overline{x}}^{(k)}+\mathbf{\overline{c}}\Big)
+=\mathbf{B}\Big(\mathbf{\overline{x}}-\mathbf{\overline{x}}^{(k+1)}\Big)
+=\mathbf{Be}^{(k)}
+\end{equation}
+%
+\begin{equation}
+\therefore \mathbf{e}^{(k)}=\mathbf{B}^k\mathbf{e}^{(0)}
+\end{equation}
+\vspace{0.5cm}
+
+
+\text{Taking the norm of both sides:    }
+\begin{equation}
+||\mathbf{e}^{(k)}||=||\mathbf{B}^k\mathbf{e}^{(0)}||
+\le||\mathbf{B}^k|| ||\mathbf{e}^{(0)}||
+\le||\mathbf{B}||^k ||\mathbf{e}^{(0)}||
+\end{equation}
+
+\begin{equation}
+\text{We can also note that  for convergence,   }
+||\mathbf{B}|| < 1
+\end{equation}
+%
+\begin{equation}
+\text{and that this is equivalent to the requirement }
+\rho(\mathbf{B}) = max|\lambda_j|< 1
+\end{equation}
+
+\vspace{0.5cm}
+Note that for large value of k,
+\begin{equation*}
+||\mathbf{e}^{(k+1)}|| = \rho ||\mathbf{e}^{(k)}||
+\end{equation*}
+
+We want to estimate the minimum number of iterations required to calculate, in order to reduce the relative error:
+\begin{equation}
+\rho^i < \epsilon
+\end{equation}
+
+leading to
+\begin{equation}
+i \le \frac{log(\epsilon)}{log(\rho)}
+\end{equation}
+ 
+ We will use equation 7 to estimate the number of iterations, noting the calculation of $\rho$ for each method:
+
+ \begin{equation*}
+ \text{Jacobi:   }
+ \rho_j = max|\lambda_j|
+ \end{equation*}
+ \begin{equation*}
+   \text{Gauss-Seidel:   }
+ \rho_{gs} = \rho_j^2
+ \end{equation*}
+  \begin{equation*}
+  \text{ SOR:   }
+ \rho_{s} = \omega - 1 \text{ , where } \omega = \frac{2}{1+\sqrt{1-\rho_j^2}}
+ \end{equation*}
+ 
+%\begin{equation}
+%||e^{(k+1)}|| =\rho ||e^{(k)}||
+%\end{equation}
+%
+%\begin{equation}
+%\rho = \frac{||e^{(k+1)}||}{||e^{(k)}||}
+%\end{equation}
+%
+%\begin{equation}
+%\rho = \epsilon
+%\end{equation}
+%
+%\text{Taking the natural log of both sides:}
+%
+%\begin{equation}
+%log(\rho) = \epsilon
+%\end{equation}
+
+
+\end{document}

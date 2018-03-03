@@ -20,13 +20,17 @@ if ~isSolvable(A)
 elseif ~converges(A)
     return
 else
-    [sol_jac, iter_jac] = jacobiMethod(A,b,x_0,tol);
+    tic;
+    [sol_jac, iter_jac] = jacobi(A,b,x_0,tol);
+    time_jac = toc; tic;
     [sol_gss, iter_gss] = gaussSeidel(A,b,x_0,tol);
+    time_gss = toc; tic;
     [sol_sor, iter_sor] = SOR(A,b,x_0,tol);
+    tims_sor = toc;
 end
 
 % Display results
 correct_solution = A\b;
-displaySolution(sol_jac, iter_jac, tol, correct_solution, 'Jacobi')
-displaySolution(sol_gss, iter_gss, tol, correct_solution, 'Gauss-Seidel')
-displaySolution(sol_sor, iter_sor, tol, correct_solution, 'SOR')
+displaySolution(sol_jac, iter_jac, tol, correct_solution, time_jac, 1, 'Jacobi')
+displaySolution(sol_gss, iter_gss, tol, correct_solution, time_gss, 1, 'Gauss-Seidel')
+displaySolution(sol_sor, iter_sor, tol, correct_solution, time_sor, 1, 'SOR')

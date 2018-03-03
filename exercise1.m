@@ -13,8 +13,10 @@ x_0 = zeros(length(b),1);
 tol = 0.00001
 
 % Iterative attempt at solution
-[solution, iterations] = jacobiMethod(A,b,x_0,tol);
+tic;
+[sol_jac, iter_jac] = jacobi(A,b,x_0,tol);
+time_jac = toc;
 correct_solution = A\b;
 
 % Display results
-displaySolution(solution, iterations, tol, correct_solution)
+displaySolution(sol_jac, iter_jac, tol, correct_solution, time_jac, 2)
